@@ -29,7 +29,7 @@ If you'd like a more detailed tutorial or walk-through of how this service works
 - [Monday.com](https://support.monday.com/hc/en-us/articles/360002543719-How-to-export-your-entire-account-s-data)
 - [Linear](https://linear.app/docs/google-sheets)
 
-2. Install dependencies.
+2. Install dependencies. Add the `-U` flag to ensure you're using the latest versions of these packages.
 
 ```bash
 pip install -r requirements.txt
@@ -50,7 +50,7 @@ export NIGHTFALL_API_KEY=<your_key_here>
 export NIGHTFALL_SIGNING_SECRET=<your_secret_here>
 export NIGHTFALL_DETECTION_RULE_UUID=<your_uuid_here>
 export NIGHTFALL_SERVER_URL=https://<your_subdomain_here>.ngrok.io
-export SALESFORCE_BACKUP_PATH='/Users/myuser/salesforce-exports/'
+export SCAN_DIRECTORY_PATH='/Users/myuser/salesforce-exports/'
 ```
 
 5. Start your webhook server. This runs `app.py`.

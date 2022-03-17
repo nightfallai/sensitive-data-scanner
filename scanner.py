@@ -1,12 +1,12 @@
 import os
-from nightfall import Confidence, DetectionRule, Detector, RedactionConfig, MaskConfig, Nightfall
+from nightfall import Confidence, DetectionRule, Detector, RedactionConfig, MaskConfig, AlertConfig, WebhookAlert, Nightfall
 from os import walk
 
 nightfall = Nightfall() # reads API key from NIGHTFALL_API_KEY environment variable by default
 webhook_url = f"{os.getenv('NIGHTFALL_SERVER_URL')}/ingest"
 
-# update this path to point to your folder containing your unzipped Salesforce backup
-rootpath = os.getenv('SALESFORCE_BACKUP_PATH')
+# update this path to point to your folder/directory/backup to scan
+rootpath = os.getenv('SCAN_DIRECTORY_PATH')
 
 # if a detection rule UUID is provided, use it
 # else use a default inline detection rule for credit card numbers, SSNs, and API keys
@@ -48,7 +48,7 @@ for (dirpath, dirnames, filenames) in walk(rootpath):
 			print(f"Scanning {filepath}")
 			# scan with Nightfall
 			scan_id, message = nightfall.scan_file(filepath, 
-				webhook_url=webhook_url,
+				alert_config=AlertConfig(url=WebhookAlert(webhook_url)),
 				detection_rule_uuids=detection_rule_uuids,
 				detection_rules=detection_rules, 
 				request_metadata=filepath)
